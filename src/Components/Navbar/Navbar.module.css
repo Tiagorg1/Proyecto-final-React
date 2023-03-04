@@ -13,3 +13,7 @@
   align-items: center;
   gap: 40px;
 }
+
+li{
+  color: black;
+}

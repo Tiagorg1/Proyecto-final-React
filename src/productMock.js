@@ -1,0 +1,38 @@
+export const products = [
+  {
+    id: 1,
+    title: "Teclado Redragon",
+    price: 25000,
+    description: "Teclado gamer",
+    category: "Teclado",
+    stock: 4,
+    img: "https://res.cloudinary.com/drtmog1df/image/upload/v1678498956/teclado_mecanico_gamer_redragon_mitra_k551_rgb_e4i8fo.jpg",
+  },
+  {
+    id: 2,
+    title: "Teclado Skyloong",
+    price: 35000,
+    description: "Teclado gamer personalizado",
+    category: "Personalizado",
+    stock: 4,
+    img: "https://res.cloudinary.com/drtmog1df/image/upload/v1678499084/61ZiLeuAiuL._AC_SL1200__ebvfuw.jpg",
+  },
+  {
+    id: 3,
+    title: "Teclado HyperX",
+    price: 24000,
+    description: "Teclado gamer mecanico",
+    category: "Teclado",
+    stock: 4,
+    img: "https://res.cloudinary.com/drtmog1df/image/upload/v1678502086/Teclado-Gamer-Hyperx-Alloy-Origins-65-Ingles-Mecanico_43024_2_hu05bn.jpg",
+  },
+  {
+    id: 4,
+    title: "Teclado HFSECURITY",
+    price: 37700,
+    description: "Teclado gamer personalizado",
+    category: "Personalizado",
+    stock: 4,
+    img: "https://res.cloudinary.com/drtmog1df/image/upload/v1678502579/He5ac41c36f7348eab15d1f666ce639baL_ihlpxg.jpg",
+  },
+];

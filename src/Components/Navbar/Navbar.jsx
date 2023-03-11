@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CartWidget from "../CartWidget/CartWidget";
 import { Logo } from "../Logo/Logo";
 import styles from "./Navbar.module.css";
@@ -8,15 +9,11 @@ const Navbar = ({ children }) => {
       <div className={styles.containerNavBar}>
         <Logo />
         <ul className={styles.containerList}>
-          <a href="#">
-            <li>Productos</li>
-          </a>
-          <a href="#">
-            <li>Quienes somos</li>
-          </a>
-          <a href="#">
-            <li>Ayuda</li>
-          </a>
+          <Link to= "/">Todos los productos</Link>
+
+          <Link to= "/category/Teclado">Teclados</Link>
+
+          <Link to= "/category/Personalizado">Teclados personalizados</Link>
         </ul>
         <CartWidget />
       </div>

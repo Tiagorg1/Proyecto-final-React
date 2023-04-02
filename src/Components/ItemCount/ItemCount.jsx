@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from '@mui/material/Button';
 
+
 const ItemCount = ({ stock, initial = 1, onAdd }) => {
   const [contador, setContador] = useState(initial);
 
@@ -9,7 +10,6 @@ const ItemCount = ({ stock, initial = 1, onAdd }) => {
       setContador(contador + 1);
     }
 
-    console.log("Se agrego al carrito");
   };
 
   const restar = () => {
@@ -17,7 +17,6 @@ const ItemCount = ({ stock, initial = 1, onAdd }) => {
       setContador(contador - 1);
     }
 
-    console.log("Se quito del carrito");
   };
 
   return (

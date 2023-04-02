@@ -1,31 +1,49 @@
 import { useEffect, useState } from "react";
 import ItemList from "../../ItemList/ItemList";
-import { products } from "../../productMock";
 import { useParams } from "react-router-dom";
+import RiseLoader from "react-spinners/RiseLoader";
+import { db } from "../../firebaseConfig";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 const ItemListContainer = () => {
   const { categoryName } = useParams();
 
   const [items, setItems] = useState([]);
 
-  const productosFiltrados = products.filter(
-    (elemento) => elemento.category === categoryName);
-
   useEffect(() => {
-    const productList = new Promise((resolve, reject) => {
-      resolve(categoryName ? productosFiltrados : products);
-    });
-  
-    productList
-      .then((res) => {
-        setItems(res);
-      })
-      .catch((error) => {
-        console.log(error);
+    const itemsCollection = collection(db, "products");
+    let consulta = undefined;
+    if (categoryName) {
+      const q = query(itemsCollection, where("category", "==", categoryName));
+      consulta = getDocs(q);
+    } else {
+      consulta = getDocs(itemsCollection);
+    }
+    consulta.then((res) => {
+      let products = res.docs.map((product) => {
+        return {
+          ...product.data(),
+          id: product.id,
+        };
       });
+      setItems(products);
+    });
   }, [categoryName]);
 
-  console.log(items);
+  if (items.length === 0) {
+    return (
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: 300 }}
+      >
+        <RiseLoader
+          color={"brown"}
+          size={20}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -1,32 +1,54 @@
 import { useParams } from "react-router-dom";
-import { products } from "../../productMock";
-import ItemCount from "../ItemCount/ItemCount";
-import styles from "./ItemDetailContainer.module.css";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../Context/CartContext";
+import Swal from "sweetalert2";
+import { getDoc, collection, doc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
+import ItemDetail from "../ItemDetail/ItemDetail";
 
 const ItemDetailContainer = () => {
   const { id } = useParams();
 
-  const productSelected = products.find((element) => element.id === Number(id));
-  const onAdd = (cantidad) => {
-    console.log(`se agrego al carrito ${cantidad} productos`);
-  };
-  return (
-    <div className={styles.product}>
-      <img className={styles.img} src={productSelected.img} alt="" />
-      <span className={styles.linea}></span>
-      <h1 className={styles.title}>{productSelected.title}</h1>
-      <span className={styles.linea}></span>
-      <h2 className={styles.desc}>{productSelected.description}</h2>
-      <span className={styles.linea}></span>
-      <h2 className={styles.price} style={{ justifySelf: "flex-start" }}>Precio: $
-        {productSelected.price}
-      </h2>
-      <span className={styles.linea}></span>
-      <div style={{display:"flex", justifyContent:"center", textAlign:"center", marginTop:"15px"}}>
-        <ItemCount stock={productSelected.stock} onAdd={onAdd} />
-      </div>
-    </div>
+  const { agregarAlCarrito, getQuantityById } = useContext(CartContext);
 
+  const [productSelected, setProductSelected] = useState({});
+
+  useEffect(() => {
+    const itemCollection = collection(db, "products");
+    const ref = doc(itemCollection, id);
+    getDoc(ref).then((res) => {
+      setProductSelected({
+        ...res.data(),
+        id: res.id,
+      });
+    });
+  }, [id]);
+
+  const onAdd = (cantidad) => {
+    let producto = {
+      ...productSelected,
+      quantity: cantidad,
+    };
+
+    agregarAlCarrito(producto);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Se agrego al carrito",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  let quantity = getQuantityById(Number(id));
+
+
+  return (
+    <ItemDetail
+      productSelected={productSelected}
+      onAdd={onAdd}
+      quantity={quantity}
+    />
   );
 };
 

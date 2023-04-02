@@ -7,9 +7,14 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
+
+
 const Item = ({ element }) => {
+  
   return (
+
     <div className={styles.container}>
+      
       <Card sx={{ width: 345, height: 300 }}>
         <CardMedia
           sx={{ height: 140 }}

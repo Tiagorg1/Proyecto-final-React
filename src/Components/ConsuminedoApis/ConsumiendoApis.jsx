@@ -13,7 +13,6 @@ useEffect(()=>{
    
 },[])
 
-console.log(posts)
 
   return (
     <div>ConsumiendoApis</div>
